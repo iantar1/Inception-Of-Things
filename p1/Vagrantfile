@@ -1,0 +1,70 @@
+
+Vagrant.configure("2") do |config|
+
+  config.vm.define "iantarS" do |debian|
+    debian.vm.box = "debian/bullseye64"
+    debian.vm.provider :libvirt do |libvirt|
+      libvirt.driver = "qemu"
+      libvirt.cpus = 1
+      libvirt.memory = 512
+    end
+
+    config.vm.network "private_network", ip: "192.168.56.110"
+
+
+    debian.vm.provision "shell", inline: <<-SHELL
+      # Install dependencies
+      sudo apt update
+      sudo apt install -y curl
+
+      # Disable swap
+      sudo swapoff -a
+      sudo sed -i '/swap/d' /etc/fstab
+
+      # Install K3s
+      curl -sfL https://get.k3s.io | sh -
+
+      # Make kubectl available to vagrant user
+      sudo mkdir -p /home/vagrant/.kube
+      sudo ln -s /etc/rancher/k3s/k3s.yaml /home/vagrant/.kube/config
+      sudo chown vagrant:vagrant /home/vagrant/.kube/config
+
+      # Verify installation
+      /usr/local/bin/k3s kubectl get nodes
+    SHELL
+  end
+
+
+
+  # second machine
+  config.vm.define "iantarSW" do |debian|
+    debian.vm.box = "debian/bullseye64"
+    debian.vm.provider :libvirt do |libvirt|
+      libvirt.driver = "qemu"
+      libvirt.cpus = 1
+      libvirt.memory = 512
+    end
+    config.vm.network "private_network", ip: "192.168.56.111"
+
+    debian.vm.provision "shell", inline: <<-SHELL
+      # Install dependencies
+      sudo apt update
+      sudo apt install -y curl
+
+      # Disable swap
+      sudo swapoff -a
+      sudo sed -i '/swap/d' /etc/fstab
+
+      # Install K3s
+      curl -sfL https://get.k3s.io | sh -
+
+      # Make kubectl available to vagrant user
+      sudo mkdir -p /home/vagrant/.kube
+      sudo ln -s /etc/rancher/k3s/k3s.yaml /home/vagrant/.kube/config
+      sudo chown vagrant:vagrant /home/vagrant/.kube/config
+
+      # Verify installation
+      /usr/local/bin/k3s kubectl get nodes
+    SHELL
+  end
+end
