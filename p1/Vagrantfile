@@ -1,70 +1,84 @@
-
 Vagrant.configure("2") do |config|
-
+  # --- Controller ---
   config.vm.define "iantarS" do |debian|
     debian.vm.box = "debian/bullseye64"
+    debian.vm.hostname = "iantarS"
+    debian.vm.network "private_network", ip: "192.168.56.110"
+
     debian.vm.provider :libvirt do |libvirt|
       libvirt.driver = "qemu"
-      libvirt.cpus = 1
-      libvirt.memory = 512
+      libvirt.cpus = 2
+      libvirt.memory = 2048
     end
 
-    config.vm.network "private_network", ip: "192.168.56.110"
-
-
     debian.vm.provision "shell", inline: <<-SHELL
-      # Install dependencies
-      sudo apt update
-      sudo apt install -y curl
 
       # Disable swap
       sudo swapoff -a
       sudo sed -i '/swap/d' /etc/fstab
-
-      # Install K3s
+      sudo apt update
+      sudo apt install -y curl python3
+      # Install K3s controller
       curl -sfL https://get.k3s.io | sh -
 
-      # Make kubectl available to vagrant user
-      sudo mkdir -p /home/vagrant/.kube
-      sudo ln -s /etc/rancher/k3s/k3s.yaml /home/vagrant/.kube/config
-      sudo chown vagrant:vagrant /home/vagrant/.kube/config
+      # Wait until the node-token file exists
+      for i in $(seq 1 30); do
+        if [ -f /var/lib/rancher/k3s/server/node-token ]; then
+          echo "K3s token found."
+          break
+        fi
+        echo "Waiting for K3s token..."
+        sleep 5
+      done
+      # Copy the token to home directory for serving
+      sudo cp /var/lib/rancher/k3s/server/node-token /home/vagrant/node-token
+      sudo chmod 644 /home/vagrant/node-token
 
-      # Verify installation
-      /usr/local/bin/k3s kubectl get nodes
+       # Serve the token directory via HTTP (in background)
+      cd /home/vagrant
+      nohup python3 -m http.server 8080 --directory /home/vagrant
+      # nohup: keeps the command running even if the SSH session or provisioning 
+        # process ends. Without it, the server would stop when provisioning finishes.
+      echo "HTTP server started on port 8080 serving /home/vagrant"
+
     SHELL
+
   end
 
-
-
-  # second machine
+  # --- Worker ---
   config.vm.define "iantarSW" do |debian|
     debian.vm.box = "debian/bullseye64"
+    debian.vm.hostname = "iantarSW"
+    debian.vm.network "private_network", ip: "192.168.56.111"
+
     debian.vm.provider :libvirt do |libvirt|
       libvirt.driver = "qemu"
       libvirt.cpus = 1
       libvirt.memory = 512
     end
-    config.vm.network "private_network", ip: "192.168.56.111"
 
     debian.vm.provision "shell", inline: <<-SHELL
-      # Install dependencies
       sudo apt update
       sudo apt install -y curl
-
       # Disable swap
       sudo swapoff -a
       sudo sed -i '/swap/d' /etc/fstab
+      SERVER_IP=192.168.56.110
 
-      # Install K3s
-      curl -sfL https://get.k3s.io | sh -
+      curl -sf "http://$SERVER_IP:8080/node-token" -o /tmp/node-token
+      # for i in $(seq 1 20); do
+      #   if curl -sf "http://$SERVER_IP:8080/node-token" -o /tmp/node-token; then
+      #     echo "Token received from controller."
+      #     break
+      #   fi
+      #   echo "Waiting for token server..."
+      #   sleep 5
+      # done
 
-      # Make kubectl available to vagrant user
-      sudo mkdir -p /home/vagrant/.kube
-      sudo ln -s /etc/rancher/k3s/k3s.yaml /home/vagrant/.kube/config
-      sudo chown vagrant:vagrant /home/vagrant/.kube/config
+      TOKEN=$(cat /tmp/node-token)
 
-      # Verify installation
-      /usr/local/bin/k3s kubectl get nodes
+      # Install K3s agent
+      curl -sfL https://get.k3s.io | sudo K3S_URL=https://$SERVER_IP:6443 K3S_TOKEN=$TOKEN sh -
     SHELL
   end
 end
