@@ -66,14 +66,7 @@ Vagrant.configure("2") do |config|
       SERVER_IP=192.168.56.110
 
       curl -sf "http://$SERVER_IP:8080/node-token" -o /tmp/node-token
-      # for i in $(seq 1 20); do
-      #   if curl -sf "http://$SERVER_IP:8080/node-token" -o /tmp/node-token; then
-      #     echo "Token received from controller."
-      #     break
-      #   fi
-      #   echo "Waiting for token server..."
-      #   sleep 5
-      # done
+
 
       TOKEN=$(cat /tmp/node-token)
 
