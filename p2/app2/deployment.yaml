@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app2
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app2
+  template:
+    metadata:
+      labels:
+        app: app2
+    spec:
+      containers:
+        - name: app2
+          image: nginx:1.14.2
+          volumeMounts:
+          - name: app2-volume
+            mountPath: /usr/share/nginx/html
+      volumes:
+      - name: app2-volume
+        hostPath:
+          path: /home/kali/Inception-Of-Things/p2/app2/srcs  # your host folder containing index.html
+          type: Directory

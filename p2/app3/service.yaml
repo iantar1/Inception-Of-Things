@@ -11,8 +11,8 @@ spec:
   type: NodePort
   ports:
     - protocol: TCP
-      nodePort: 30002
-      port: 30002
+      nodePort: 30003
+      port: 30003
       targetPort: 80
 
       # /usr/share/nginx/html
