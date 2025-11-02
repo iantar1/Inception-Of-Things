@@ -8,6 +8,14 @@
 Vagrant.configure("2") do |config|
 
   config.vm.box = "debian/bullseye64"
+  config.vm.hostname = "iantarS"
+  config.vm.network "private_network", ip: "192.168.56.110"
+  config.vm.provider :libvirt do |libvirt|
+    libvirt.driver = "qemu"
+    libvirt.cpus = 2
+    libvirt.memory = 2048
+  end
+  config.vm.synced_folder "shared_folder/", "."
 
 end
 
