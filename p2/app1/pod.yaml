@@ -1,19 +1,19 @@
-apiVersion: v1
-kind: Pod
-metadata:
-  name: app1
-  labels:
-    app: app1
+# apiVersion: v1
+# kind: Pod
+# metadata:
+#   name: app1
+#   labels:
+#     app: app1
 
-spec:
-  containers:
-    - name: nginx
-      image: nginx:1.14.2
-      volumeMounts:
-        - name: app1-volume
-          mountPath: /usr/share/nginx/html  # NGINX serves from here
-  volumes:
-    - name: app1-volume
-      hostPath:
-        path: /home/kali/Inception-Of-Things/p2/app1/srcs  # your host folder containing index.html
-        type: Directory  # tells Kubernetes it's a directory
+# spec:
+#   containers:
+#     - name: nginx
+#       image: nginx:1.14.2
+#       volumeMounts:
+#         - name: app1-volume
+#           mountPath: /usr/share/nginx/html  # NGINX serves from here
+#   volumes:
+#     - name: app1-volume
+#       hostPath:
+#         path: /home/kali/Inception-Of-Things/p2/app1/srcs  # your host folder containing index.html
+#         type: Directory  # tells Kubernetes it's a directory

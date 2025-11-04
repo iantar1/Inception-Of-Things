@@ -8,11 +8,9 @@ metadata:
 spec:
   selector:
     app: app3
-  type: NodePort
+  # type: NodePort
   ports:
     - protocol: TCP
-      nodePort: 30003
-      port: 30003
+      # nodePort: 30003
+      port: 80
       targetPort: 80
-
-      # /usr/share/nginx/html
