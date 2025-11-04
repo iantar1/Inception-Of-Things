@@ -21,5 +21,5 @@ spec:
       volumes:
       - name: app2-volume
         hostPath:
-          path: /home/kali/Inception-Of-Things/p2/app2/srcs  # your host folder containing index.html
+          path: /vagrant/app2/srcs  # your host folder containing index.html
           type: Directory

@@ -15,5 +15,5 @@
 #   volumes:
 #     - name: app1-volume
 #       hostPath:
-#         path: /home/kali/Inception-Of-Things/p2/app1/srcs  # your host folder containing index.html
+#         path: /vagrant/app1/srcs  # your host folder containing index.html
 #         type: Directory  # tells Kubernetes it's a directory
