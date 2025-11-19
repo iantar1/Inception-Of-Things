@@ -1,0 +1,42 @@
+global:
+  minio:
+    enabled: false
+  hosts:
+    domain: "localhost"
+  ingress:
+    configureCertmanager: false
+
+postgresql:
+  install: true
+
+redis:
+  install: true
+
+gitaly:
+  enabled: false
+
+prometheus:
+  install: false
+
+registry:
+  enabled: false
+
+artifacts:
+  enabled: false
+
+lfs:
+  enabled: false
+
+uploads:
+  enabled: false
+
+packages:
+  enabled: false
+
+toolbox:
+  backups:
+    objectStorage:
+      enabled: true
+      config:
+        secret: gitlab-object-storage-config
+
