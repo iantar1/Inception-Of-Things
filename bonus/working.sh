@@ -11,3 +11,15 @@ sudo helm upgrade --install gitlab gitlab/gitlab \
   --set global.redis.install=true \
   --set global.registry.enabled=false \
   --set global.prometheus.install=false
+
+
+
+sudo docker run --detach \
+  --hostname gitlab.example.com \
+  --publish 443:443 --publish 80:80 --publish 22:22 \
+  --name gitlab \
+  --restart always \
+  --volume /srv/gitlab/config:/etc/gitlab \
+  --volume /srv/gitlab/logs:/var/log/gitlab \
+  --volume /srv/gitlab/data:/var/opt/gitlab \
+  gitlab/gitlab-ee:latest
