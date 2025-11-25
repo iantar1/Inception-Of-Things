@@ -93,7 +93,7 @@ argocd login localhost:8080 \
 # ------------------------------------------------------------------------------
 # REGISTER YOUR GITLAB REPO
 # ------------------------------------------------------------------------------
-argocd repo add "http://10.52.84.11:8081/root/gitlab-test-repo.git" \
+argocd repo add "http://gitlab.gitlab.local:30000//root/gitlab-test-repo.git" \
   --username root \
   --password "glpat-OMo5zPZIIqqD7Y9pPxk-BW86MQp1OjEH.01.0w1wb439s" \
   --insecure
@@ -102,7 +102,7 @@ argocd repo add "http://10.52.84.11:8081/root/gitlab-test-repo.git" \
 # CREATE APP
 # ------------------------------------------------------------------------------
 argocd app create myapp \
-  --repo "http://10.52.84.11:8081/root/gitlab-test-repo.git" \
+  --repo "http://gitlab.gitlab.local:30000//root/gitlab-test-repo.git" \
   --path p3 \
   --dest-server https://kubernetes.default.svc \
   --dest-namespace dev

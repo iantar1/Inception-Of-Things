@@ -1,0 +1,43 @@
+global:
+  edition: ce
+  gitaly:
+    authToken: "same-token-everywhere"
+  hosts:
+    domain: gitlab.local
+    gitlab:
+      name: gitlab.gitlab.local
+
+  # ingress:
+  #   class: "nginx"   # You are using nginx ingress
+  #   configureCertmanager: false
+  #   tls:
+  #     enabled: false
+  #   annotations:
+  #     nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
+
+# nginx-ingress:
+#   enabled: false
+
+certmanager-issuer:
+  enabled: false
+
+gitlab-runner:
+  install: false
+
+gitlab:
+  webservice:
+    externalUrl: "http://gitlab.gitlab.local"
+
+  migrations:
+    initialRootPassword:
+      secret: gitlab-gitlab-initial-root-password
+      key: password
+
+postgresql:
+  install: true
+
+redis:
+  install: true
+
+minio:
+  install: true
