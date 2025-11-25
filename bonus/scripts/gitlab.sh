@@ -98,6 +98,6 @@ kubectl apply -f ../conf/service.yaml
 kubectl apply -f ../conf/ingress.yaml
 
 
-kubectl port-forward -n gitlab svc/gitlab-service 8081:80
+# kubectl port-forward -n gitlab svc/gitlab-service 8081:80
 
 echo "==== DONE ===="
