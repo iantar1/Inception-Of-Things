@@ -1,20 +1,28 @@
 # Inception-Of-Things
 
+![Learning curves](images/learning-curves.png)
+
+*Figure: Learning curves for the Inception-Of-Things project.*
 
 - intrudaction:
     This project aims to deepen my knowledge by using K3d and K3s with
     Vagrant.
 
 - what is kubernetes:
-    - kubelet, ....
-    - deployment:
-    - pod:
-    - ingress:
-    - service:
-    - k3s:
-    - k3d:
+    - **Kubernetes** is a tool that helps run and manage many
+        containers automatically across multiple machines.
+        It makes sure everything stays running, scales when needed,
+        and organizes your apps for you.
+        
+        - kubelet, ....
+        - deployment:
+        - pod:
+        - ingress:
+        - service:
+        - k3s:
+        - k3d:
 
-- what is vangrant:
+    - what is vangrant:
     - vangrantfile:
 
 - argocd:

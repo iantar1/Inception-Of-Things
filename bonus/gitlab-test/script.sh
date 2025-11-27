@@ -102,7 +102,7 @@ argocd repo add "http://gitlab.gitlab.local:30000//root/gitlab-test-repo.git" \
 # CREATE APP
 # ------------------------------------------------------------------------------
 argocd app create myapp \
-  --repo "http://gitlab.gitlab.local:30000//root/gitlab-test-repo.git" \
+  --repo "http://gitlab.gitlab.local:30000/root/gitlab-test-repo.git" \
   --path p3 \
   --dest-server https://kubernetes.default.svc \
   --dest-namespace dev
