@@ -51,7 +51,15 @@ argocd app create myapp \
   --repo "http://gitlab-service.gitlab.svc.cluster.local/root/gitlab-test-repo.git" \
   --path p3 \
   --dest-server https://kubernetes.default.svc \
-  --dest-namespace dev
+  --dest-namespace dev \
+  --sync-policy automated \
+  --auto-prune \
+  --self-heal
+
+# --sync-policy automated → enable automatic syncing.
+# --auto-prune → remove resources that are deleted from Git.
+# --self-heal → automatically fix drifts if cluster resources diverge from Git.
+
 
 argocd app sync myapp
 
