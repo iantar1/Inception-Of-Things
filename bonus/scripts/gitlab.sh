@@ -97,7 +97,16 @@ kubectl apply -f ../conf/deployment.yaml
 kubectl apply -f ../conf/service.yaml
 kubectl apply -f ../conf/ingress.yaml
 
+sleep 20
 
-# kubectl port-forward -n gitlab svc/gitlab-service 8081:80
+
+kubectl port-forward -n gitlab svc/gitlab-service 30000:80
 
 echo "==== DONE ===="
+# n3aass wahd 3 min rah hadxi t9iiiiil 
+sleep 60
+
+# curl -H "Content-Type: application/json" \
+#      -H "PRIVATE-TOKEN: <your-private-token>" \
+#      -X POST "http://localhost:30000/api/v4/projects" \
+#      -d '{"name":"gitlab-test-repo","visibility":"public"}'
