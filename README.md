@@ -23,8 +23,9 @@
 
 
 # p1: K3s and Vagrant
-    - In this part, I created two lightweight virtual machines using Vagrant. Each machine has a custom hostname,
-    passwordless SSH access, and follows modern Vagrant practices. K3s is installed on both: the first as the server
+    - In this part, I created two lightweight virtual machines using Vagrant.
+    Each machine has a custom hostname, passwordless SSH access, and follows
+    modern Vagrant practices. K3s is installed on both: the first as the server
     (controller) node and the second as the worker (agent) node.
     $ cd p1
     $ vagrant up
