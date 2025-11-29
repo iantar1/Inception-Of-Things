@@ -1,6 +1,6 @@
 # Inception-Of-Things
 
-![Learning curves](images/learning-curves.png)
+![Learning curves](images/kubernetes-Logo.png)
 
 *Figure: Learning curves for the Inception-Of-Things project.*
 
@@ -31,21 +31,6 @@
             Kube-Proxy – Handles network rules so services can talk to pods.
 
             Container Runtime – Runs the actual containers (containerd, CRI-O, etc.).
-        - kubelet, ....
-        - deployment:
-        - pod:
-        - ingress:
-        - service:
-        - k3s:
-        - k3d:
-
-    - what is vangrant:
-    - vangrantfile:
-
-- argocd:
-
-- gitlab:
-
 
 # p1: K3s and Vagrant
     - In this part, I created two lightweight virtual machines using Vagrant.
