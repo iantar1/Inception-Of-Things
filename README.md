@@ -92,6 +92,9 @@ In this phase, I moved beyond K3s and built a complete GitOps workflow using K3d
 ![p3 diagram](images/p3.png)
 
 # bonus:
+
+![p2 diagram](images/gitlab-logo.jpg)
+
 As an additional challenge, I extended the GitOps workflow by deploying a local GitLab instance directly inside the K3d cluster, replacing GitHub while keeping the same automated Argo CD deployment process from Part 3.
 
 ✔️ 1. Local GitLab Deployment
@@ -123,4 +126,3 @@ As an additional challenge, I extended the GitOps workflow by deploying a local 
     Argo CD deploys both versions of the app: Tag v1 and v2
     Updating the tag or manifests in GitLab immediately updates the cluster through Argo CD.
 
-![p2 diagram](images/gitlab-logo.jpg)
