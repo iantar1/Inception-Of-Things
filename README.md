@@ -90,4 +90,37 @@ In this phase, I moved beyond K3s and built a complete GitOps workflow using K3d
         Result: A fully working GitOps pipeline.
 
 ![p3 diagram](images/p3.png)
+
 # bonus:
+As an additional challenge, I extended the GitOps workflow by deploying a local GitLab instance directly inside the K3d cluster, replacing GitHub while keeping the same automated Argo CD deployment process from Part 3.
+
+✔️ 1. Local GitLab Deployment
+    Deployed GitLab as a Kubernetes Deployment using its Docker image (no Helm charts).
+    Created a dedicated gitlab namespace.
+    Exposed GitLab through a Service running inside the K3d cluster.
+
+
+✔️ 2. Automated Installation Script
+
+    To simplify setup during the defense, I wrote a full automation script that:
+        . Installs all necessary dependencies
+        . Deploys the GitLab resources inside the gitlab namespace.
+        . Starts port-forwarding so the local machine can access the GitLab UI.
+        . This script allows the entire environment to be recreated from scratch in just a few minutes.
+
+✔️ 3. GitLab + Argo CD Integration
+
+    Connected GitLab to the K3d cluster.
+    Created a GitLab repository containing the application’s Kubernetes manifests.
+    Configured Argo CD to pull from the GitLab repository.
+    Reproduced the same GitOps process from Part 3:
+        Argo CD continuously monitors the GitLab repo.
+        Any push automatically triggers synchronization and deployment into the dev namespace.
+
+✔️ 4. Application Deployment (v1 / v2)
+
+    The same application from Part 3 is fully supported.
+    Argo CD deploys both versions of the app: Tag v1 and v2
+    Updating the tag or manifests in GitLab immediately updates the cluster through Argo CD.
+
+![p2 diagram](images/gitlab-logo.jpg)
