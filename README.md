@@ -13,7 +13,7 @@
         containers automatically across multiple machines.
         It makes sure everything stays running, scales when needed,
         and organizes your apps for you.
-        
+    - **kubernetes component**
         - kubelet, ....
         - deployment:
         - pod:

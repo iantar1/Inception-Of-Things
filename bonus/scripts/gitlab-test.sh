@@ -2,6 +2,9 @@
 # ------------------------------------------------------------------------------
 # APPLY MANIFESTS
 # ------------------------------------------------------------------------------
+
+GITLAB_PASSWORD="shakshabani3tihlabani2025"
+
 echo -e "${GREEN} Applying namespaces..."
 kubectl apply -R -f ../conf/gitlab-test/namespaces/
 
@@ -25,11 +28,12 @@ sleep 40
 ARGOCD_PASSWORD=$(kubectl -n argocd get secret argocd-initial-admin-secret \
   -o jsonpath="{.data.password}" | base64 -d)
 
+
 # ------------------------------------------------------------------------------
 # ARGOCD LOGIN
 # ------------------------------------------------------------------------------
-kubectl port-forward svc/argocd-server -n argocd 8080:443 >> /dev/null 1>&2
-sleep 5
+kubectl port-forward svc/argocd-server -n argocd 8080:443 &
+sleep 10
 
 argocd login localhost:8080 \
   --username admin \
@@ -60,6 +64,7 @@ argocd app create myapp \
 # --auto-prune → remove resources that are deleted from Git.
 # --self-heal → automatically fix drifts if cluster resources diverge from Git.
 
+echo "here is the password for gitlab: $GITLAB_PASSWORD"
 
 argocd app sync myapp
 
