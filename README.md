@@ -1,6 +1,6 @@
 # Inception-Of-Things
 
-![Learning curves](images/kubernetes-Logo.png)
+![Learning curves](images/kubernetes-Logo.jpg)
 
 *Figure: Learning curves for the Inception-Of-Things project.*
 
